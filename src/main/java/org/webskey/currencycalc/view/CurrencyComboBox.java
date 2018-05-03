@@ -1,5 +1,7 @@
 package org.webskey.currencycalc.view;
 
+import org.webskey.currencycalc.model.UrlReader;
+
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 
@@ -9,15 +11,17 @@ public class CurrencyComboBox<T> extends ComboBox<Object> {
 		getItems().add("CHF");
 		getItems().add("EUR");
 		getItems().add("GBP");
-		getItems().add("RUB");
+		getItems().add("JPY");
 		getItems().add("USD");
 	
 		getSelectionModel().select(2);
 		
 		setWidth(100);
 		
-		valueProperty().addListener((ObservableValue<?> ov, Object previousValue, Object currentValue) -> {     
-			System.out.println(currentValue);
+		UrlReader.setCurrency("gbp");
+		valueProperty().addListener((ObservableValue<?> ov, Object previousValue, Object currentValue) -> {    
+			UrlReader.setCurrency((String)currentValue);
+			System.out.println(UrlReader.getCurrency());
 		});
 	}
 }

@@ -30,6 +30,7 @@ public class Layout extends GridPane {
 		//Logo
 		add(args[0], 0, 0, 3, 1); 
 		GridPane.setHalignment(args[0], HPos.CENTER);
+		GridPane.setMargin(args[0], new Insets(0, 0, 20, 0));
 		//"Currency:" label
 		add(args[1], 0, 2);  
 		//"Date:" label
@@ -52,13 +53,27 @@ public class Layout extends GridPane {
 		//sell price
 		add(args[8], 2, 5);
 		GridPane.setHalignment(args[8], HPos.CENTER);
-		//buy textfield
+		//buyInfoTextField label
+		GridPane.setMargin(args[9], new Insets(20, 0, 0, 0));
 		add(args[9], 0, 6);  
-		GridPane.setHalignment(args[9], HPos.CENTER);
-		//sell textfield
+		//sellInfoTextField label
+		GridPane.setMargin(args[10], new Insets(20, 0, 0, 0));
 		add(args[10], 2, 6);
-		GridPane.setHalignment(args[10], HPos.CENTER);
+		//buy textfield
+		add(args[11], 0, 7);  
+		GridPane.setHalignment(args[11], HPos.CENTER);
+		//sell textfield
+		add(args[12], 2, 7);
+		GridPane.setHalignment(args[12], HPos.CENTER);
+		//buyCostInfo Label
+		add(args[13], 0, 8);
+		GridPane.setHalignment(args[13], HPos.CENTER);
 		//button
-		add(args[11], 1, 7);       
+		add(args[14], 1, 8);  
+		//sellCostInfo Label
+		add(args[15], 2, 8);
+		GridPane.setHalignment(args[15], HPos.CENTER);
+		//Button to getcurrencyInfo
+		add(args[16], 1, 3);
 	}
 }
