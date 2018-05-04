@@ -18,7 +18,7 @@ public class Layout extends GridPane {
 		column0.setMinWidth(100);
 		column2.setMaxWidth(150);
 		column2.setMinWidth(100);
-		//columnConstraints.setPercentWidth(50);
+		
 		getColumnConstraints().addAll(column0, column1, column2);
 		setMinSize(800, 640); 
 		setPadding(new Insets(10, 10, 10, 10)); 

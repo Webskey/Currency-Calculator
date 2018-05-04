@@ -3,10 +3,12 @@ package org.webskey.currencycalc.model;
 import java.util.List;
 
 public class Nbp {
+	
 	private String table;
 	private String currency;
 	private String code;
 	private List<NbpArray> rates;
+	
 	public String getTable() {
 		return table;
 	}

@@ -7,17 +7,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonToObjectParser {
 
-	public Nbp parse(String json) {
+	public Nbp parse(String json) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();		
-		Nbp nbp = null;
-		try{
-			nbp = mapper.readValue(json, Nbp.class);
-			System.out.println(nbp);
-			List<NbpArray> myObjects = nbp.getRates();
-			for(NbpArray obj: myObjects) {
-				System.out.println(obj.toString());
-			}
-		} catch (IOException e) { e.printStackTrace(); }
+		Nbp nbp  = mapper.readValue(json, Nbp.class);
+		System.out.println(nbp);
+		List<NbpArray> myObjects = nbp.getRates();
+		for(NbpArray obj: myObjects) {
+			System.out.println(obj.toString());
+		}
 		return nbp;
 	}
 }
