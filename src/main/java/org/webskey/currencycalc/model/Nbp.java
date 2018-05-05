@@ -8,6 +8,7 @@ public class Nbp {
 	private String currency;
 	private String code;
 	private List<NbpArray> rates;
+	private String info;
 	
 	public String getTable() {
 		return table;
@@ -32,6 +33,12 @@ public class Nbp {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	public String getInfo() {
+		return info;
 	}
 	public String toString() {
 		return this.table+"  "+this.currency;

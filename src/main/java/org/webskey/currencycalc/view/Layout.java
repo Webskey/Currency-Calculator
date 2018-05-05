@@ -16,12 +16,14 @@ public class Layout extends GridPane {
 		ColumnConstraints column2 = new ColumnConstraints();
 		column0.setMaxWidth(150);
 		column0.setMinWidth(100);
+		column1.setMaxWidth(100);
+		column1.setMinWidth(70);
 		column2.setMaxWidth(150);
 		column2.setMinWidth(100);
-		
+
 		getColumnConstraints().addAll(column0, column1, column2);
-		setMinSize(800, 640); 
-		setPadding(new Insets(10, 10, 10, 10)); 
+
+		setPadding(new Insets(50, 50, 50, 50)); 
 
 		setVgap(10); 
 		setHgap(10);       
@@ -69,11 +71,16 @@ public class Layout extends GridPane {
 		add(args[13], 0, 8);
 		GridPane.setHalignment(args[13], HPos.CENTER);
 		//button
-		add(args[14], 1, 8);  
+		add(args[14], 1, 8); 
+		GridPane.setHalignment(args[14], HPos.CENTER);
 		//sellCostInfo Label
 		add(args[15], 2, 8);
 		GridPane.setHalignment(args[15], HPos.CENTER);
 		//Button to getcurrencyInfo
 		add(args[16], 1, 3);
+		GridPane.setHalignment(args[16], HPos.CENTER);
+		//info
+		add(args[17], 1, 5);
+		GridPane.setHalignment(args[17], HPos.CENTER);
 	}
 }

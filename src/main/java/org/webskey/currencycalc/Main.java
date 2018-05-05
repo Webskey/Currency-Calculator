@@ -31,45 +31,52 @@ public class Main extends Application {
 			infoName.setFill(Color.ROYALBLUE);
 
 			Label infoCurrency = new Label("Currency:");
+			infoCurrency.setStyle("-fx-font-weight: bold;");
 			ComboBox<Object> currencyComboBox = new CurrencyComboBox<Object>();
 
 			Label infoDate = new Label("Date:");
+			infoDate.setStyle("-fx-font-weight: bold;");
 			DatePicker datePicker = new CurrencyDatePicker();
 
 			Label infoBuy = new Label("Buy:");
+			infoBuy.setStyle("-fx-font-weight: bold;");
 			Label infoSell = new Label("Sell:");
+			infoSell.setStyle("-fx-font-weight: bold;");
 
 			Label infoAmountToBuy = new Label("Enter amount to buy:");
+			infoAmountToBuy.setStyle("-fx-font-weight: bold;");
 			TextField buyTextField = new TextField();
 
 			Label infoAmountToSell = new Label("Enter amount to sell:");
+			infoAmountToSell.setStyle("-fx-font-weight: bold;");
 			TextField sellTextField = new TextField();
 
-			Label buyCost = new Label("= 50,32 PLN");
-			Label sellCost = new Label("= 43,23 PLN");
+			Label buyCost = new Label();
+			Label sellCost = new Label();
 
 			NbpFactory factory = new NbpFactory();
 			factory.setNbp();
 			Label buy = new Label(factory.getAsk());			
 			Label sell = new Label(factory.getBid());
+			Label info = new Label(factory.getNbp().getInfo());
+			info.setTextFill(Color.RED);
 
 			Button button = new Button("Calculate");
 			Button buttonC = new Button("GET");
 			buttonC.setOnAction((ActionEvent event) -> {
 				factory.setNbp();
 				buy.setText(factory.getAsk());
-				sell.setText(factory.getBid());				
+				sell.setText(factory.getBid());	
+				info.setText(factory.getNbp().getInfo());			
 			});			
 
-			button.setOnAction((ActionEvent event) -> {					
-				if(!buyTextField.getText().isEmpty()) 
-					buyCost.setText("= " +  (Double.valueOf(factory.getAsk()) * Double.valueOf(buyTextField.getText())));
-				if(!sellTextField.getText().isEmpty()) 
-					sellCost.setText("= " + (Double.valueOf(factory.getBid()) * Double.valueOf(sellTextField.getText())));
+			button.setOnAction((ActionEvent event) -> {
+				Omin(buyCost, buyTextField, factory);
+				Omin(sellCost, sellTextField, factory);
 			});						
 
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, button, sellCost, buttonC);
+					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, button, sellCost, buttonC, info);
 
 			Scene scene = new Scene(gridPane);
 
@@ -77,6 +84,19 @@ public class Main extends Application {
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void Omin(Label label, TextField tx, NbpFactory fc) {
+		try {
+			if(!tx.getText().isEmpty()) {
+				double buyA = Math.round((Double.valueOf(fc.getAsk()) * Double.valueOf(tx.getText())) * 100);
+				label.setText("= " + buyA/100 + " PLN");
+				label.setTextFill(Color.BLACK);
+			}
+		} catch (NumberFormatException e) {
+			label.setText("Please enter a number");
+			label.setTextFill(Color.RED);
 		}
 	}
 

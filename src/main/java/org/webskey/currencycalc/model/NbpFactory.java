@@ -18,10 +18,12 @@ public class NbpFactory {
 
 	public void setNbp() {
 		try {
-			this.nbp = json.parse(UrlReader.readURL());			
+			this.nbp = json.parse(UrlReader.readURL());
+			nbp.setInfo("");
 		} catch (IOException e) {
 			NbpNullBuilder builder = new NbpNullBuilder();
 			nbp = builder.getNbp();
+			nbp.setInfo("Wrong date!");
 		}
 	}
 

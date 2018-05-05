@@ -13,8 +13,8 @@ public class NbpNullBuilder {
 		nbp.setCurrency("");
 		nbp.setCode("");
 		NbpArray nbpArray = new NbpArray();
-		nbpArray.setAsk(1);
-		nbpArray.setBid(1);
+		nbpArray.setAsk(0);
+		nbpArray.setBid(0);
 		nbpArray.setNo("");
 		nbpArray.setEffectiveDate("");
 		List<NbpArray> array = new ArrayList<>();
