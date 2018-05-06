@@ -61,22 +61,22 @@ public class Main extends Application {
 			Label info = new Label(factory.getNbp().getInfo());
 			info.setTextFill(Color.RED);
 
-			Button button = new Button("Calculate");
-			Button buttonC = new Button("GET");
-			buttonC.setOnAction((ActionEvent event) -> {
+			Button buttonCalculate = new Button("Calculate");
+			Button buttonGet = new Button("GET");
+			buttonGet.setOnAction((ActionEvent event) -> {
 				factory.setNbp();
 				buy.setText(factory.getAsk());
 				sell.setText(factory.getBid());	
 				info.setText(factory.getNbp().getInfo());			
 			});			
 
-			button.setOnAction((ActionEvent event) -> {
-				Omin(buyCost, buyTextField, factory);
-				Omin(sellCost, sellTextField, factory);
+			buttonCalculate.setOnAction((ActionEvent event) -> {
+				count(buyCost, buyTextField, factory);
+				count(sellCost, sellTextField, factory);
 			});						
 
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, button, sellCost, buttonC, info);
+					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, buttonCalculate, sellCost, buttonGet, info);
 
 			Scene scene = new Scene(gridPane);
 
@@ -87,10 +87,10 @@ public class Main extends Application {
 		}
 	}
 
-	public void Omin(Label label, TextField tx, NbpFactory fc) {
+	public void count(Label label, TextField textField, NbpFactory factory) {
 		try {
-			if(!tx.getText().isEmpty()) {
-				double buyA = Math.round((Double.valueOf(fc.getAsk()) * Double.valueOf(tx.getText())) * 100);
+			if(!textField.getText().isEmpty()) {
+				double buyA = Math.round((Double.valueOf(factory.getAsk()) * Double.valueOf(textField.getText())) * 100);
 				label.setText("= " + buyA/100 + " PLN");
 				label.setTextFill(Color.BLACK);
 			}

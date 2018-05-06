@@ -21,7 +21,6 @@ public class CurrencyComboBox<T> extends ComboBox<Object> {
 		UrlReader.setCurrency("gbp");
 		valueProperty().addListener((ObservableValue<?> ov, Object previousValue, Object currentValue) -> {    
 			UrlReader.setCurrency((String)currentValue);
-			System.out.println(UrlReader.getCurrency());
 		});
 	}
 }
