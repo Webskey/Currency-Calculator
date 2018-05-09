@@ -1,5 +1,8 @@
 package org.webskey.currencycalc;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.stereotype.Component;
 import org.webskey.currencycalc.model.NbpFactory;
 import org.webskey.currencycalc.view.CurrencyComboBox;
 import org.webskey.currencycalc.view.CurrencyDatePicker;
@@ -21,22 +24,25 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
+@Component
 public class Main extends Application {
+
+	private static AbstractApplicationContext context;
+	
 	@Override
 	public void start(Stage primaryStage) {
-		try {
+		try {			
 			Text infoName = new Text("Currency Calculator");
 			infoName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
 			infoName.setFill(Color.ROYALBLUE);
 
 			Label infoCurrency = new Label("Currency:");
 			infoCurrency.setStyle("-fx-font-weight: bold;");
-			ComboBox<Object> currencyComboBox = new CurrencyComboBox<Object>();
+			ComboBox<?> currencyComboBox = context.getBean(CurrencyComboBox.class);
 
 			Label infoDate = new Label("Date:");
 			infoDate.setStyle("-fx-font-weight: bold;");
-			DatePicker datePicker = new CurrencyDatePicker();
+			DatePicker datePicker = context.getBean(CurrencyDatePicker.class);
 
 			Label infoBuy = new Label("Buy:");
 			infoBuy.setStyle("-fx-font-weight: bold;");
@@ -54,8 +60,9 @@ public class Main extends Application {
 			Label buyCost = new Label();
 			Label sellCost = new Label();
 
-			NbpFactory factory = new NbpFactory();
+			NbpFactory factory = context.getBean(NbpFactory.class);
 			factory.setNbp();
+
 			Label buy = new Label(factory.getAsk());			
 			Label sell = new Label(factory.getBid());
 			Label info = new Label(factory.getNbp().getInfo());
@@ -100,7 +107,8 @@ public class Main extends Application {
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args);
+	public static void main(String[] args) {	
+		context = new AnnotationConfigApplicationContext(AppConfig.class);
+		launch(args);		
 	}
 }

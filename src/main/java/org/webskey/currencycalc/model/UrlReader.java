@@ -5,13 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UrlReader {
 
-	private static String currency;
-	private static String date;
+	private String currency;
+	private String date;
+	
+	public UrlReader() {
+		this.currency = "gbp";
+		this.date = LocalDate.now().toString();
+	}
 
-	public static String readURL() throws IOException {	
+	public String readURL() throws IOException {	
 		URL url;
 		String tmp, webString = "";
 		
@@ -22,19 +31,19 @@ public class UrlReader {
 		return webString;
 	}
 
-	public static String getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 
-	public static void setCurrency(String currenc) {
+	public void setCurrency(String currenc) {
 		currency = currenc.toLowerCase();
 	}
 
-	public static String getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public static void setDate(String dat) {
+	public void setDate(String dat) {
 		date = dat;
 	}
 }
