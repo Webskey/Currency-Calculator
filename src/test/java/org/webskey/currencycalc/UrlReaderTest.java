@@ -44,7 +44,7 @@ public class UrlReaderTest {
 	}
 
 	@Test(expected = FileNotFoundException.class)
-	public void shouldError_whenDateCurrencyIncorrect() throws IOException {
+	public void shouldError_whenDateIncorrect() throws IOException {
 		//given
 		urlReader.setCurrency("USD");
 		urlReader.setDate("2018-02-31");

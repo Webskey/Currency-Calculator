@@ -3,6 +3,7 @@ package org.webskey.currencycalc.view;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.webskey.currencycalc.model.UrlReader;
+import org.webskey.currencycalc.service.Observer;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
@@ -12,6 +13,9 @@ public class CurrencyComboBox<T> extends ComboBox<Object> {
 
 	@Autowired
 	public UrlReader urlReader;
+	
+	@Autowired
+	private Observer observer;
 	
 	public CurrencyComboBox() {
 		getItems().add("CHF");
@@ -26,6 +30,7 @@ public class CurrencyComboBox<T> extends ComboBox<Object> {
 		
 		valueProperty().addListener((ObservableValue<?> ov, Object previousValue, Object currentValue) -> {    
 			urlReader.setCurrency((String)currentValue);
+			observer.update();
 		});
 	}
 }

@@ -76,11 +76,8 @@ public class Layout extends GridPane {
 		//sellCostInfo Label
 		add(args[15], 2, 8);
 		GridPane.setHalignment(args[15], HPos.CENTER);
-		//Button to getcurrencyInfo
-		add(args[16], 1, 3);
-		GridPane.setHalignment(args[16], HPos.CENTER);
 		//info
-		add(args[17], 1, 5);
-		GridPane.setHalignment(args[17], HPos.CENTER);
+		add(args[16], 1, 5);
+		GridPane.setHalignment(args[16], HPos.CENTER);
 	}
 }

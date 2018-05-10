@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Component;
 import org.webskey.currencycalc.model.NbpFactory;
+import org.webskey.currencycalc.service.Observer;
 import org.webskey.currencycalc.view.CurrencyComboBox;
 import org.webskey.currencycalc.view.CurrencyDatePicker;
 import org.webskey.currencycalc.view.Layout;
@@ -31,59 +32,56 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		try {			
+		try {
+			//Beans
+			NbpFactory factory = context.getBean(NbpFactory.class);
+			Observer observer = context.getBean(Observer.class);
+			
+			//Logo
 			Text infoName = new Text("Currency Calculator");
 			infoName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
 			infoName.setFill(Color.ROYALBLUE);
-
+			//Currency
 			Label infoCurrency = new Label("Currency:");
 			infoCurrency.setStyle("-fx-font-weight: bold;");
 			ComboBox<?> currencyComboBox = context.getBean(CurrencyComboBox.class);
-
+			//Date
 			Label infoDate = new Label("Date:");
 			infoDate.setStyle("-fx-font-weight: bold;");
 			DatePicker datePicker = context.getBean(CurrencyDatePicker.class);
-
+			//Buy info
 			Label infoBuy = new Label("Buy:");
 			infoBuy.setStyle("-fx-font-weight: bold;");
+			Label buy = new Label();
+			//Sell info
 			Label infoSell = new Label("Sell:");
 			infoSell.setStyle("-fx-font-weight: bold;");
-
+			Label sell = new Label();
+			//Buy calc
 			Label infoAmountToBuy = new Label("Enter amount to buy:");
 			infoAmountToBuy.setStyle("-fx-font-weight: bold;");
 			TextField buyTextField = new TextField();
-
+			Label buyCost = new Label();
+			//Sell calc
 			Label infoAmountToSell = new Label("Enter amount to sell:");
 			infoAmountToSell.setStyle("-fx-font-weight: bold;");
 			TextField sellTextField = new TextField();
-
-			Label buyCost = new Label();
 			Label sellCost = new Label();
-
-			NbpFactory factory = context.getBean(NbpFactory.class);
-			factory.setNbp();
-
-			Label buy = new Label(factory.getAsk());			
-			Label sell = new Label(factory.getBid());
-			Label info = new Label(factory.getNbp().getInfo());
-			info.setTextFill(Color.RED);
-
+			//Calc button
 			Button buttonCalculate = new Button("Calculate");
-			Button buttonGet = new Button("GET");
-			buttonGet.setOnAction((ActionEvent event) -> {
-				factory.setNbp();
-				buy.setText(factory.getAsk());
-				sell.setText(factory.getBid());	
-				info.setText(factory.getNbp().getInfo());			
-			});			
-
 			buttonCalculate.setOnAction((ActionEvent event) -> {
 				count(buyCost, buyTextField, factory);
 				count(sellCost, sellTextField, factory);
-			});						
-
+			});	
+			//Error info label
+			Label info = new Label();	
+			info.setTextFill(Color.RED);
+			
+			observer.setLabels(buy, sell, info);
+			observer.update();	
+			//Layout					
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, buttonCalculate, sellCost, buttonGet, info);
+					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, buttonCalculate, sellCost, info);
 
 			Scene scene = new Scene(gridPane);
 

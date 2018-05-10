@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.webskey.currencycalc.model.NbpFactory;
 import org.webskey.currencycalc.model.UrlReader;
+import org.webskey.currencycalc.service.Observer;
 import org.webskey.currencycalc.view.CurrencyComboBox;
 import org.webskey.currencycalc.view.CurrencyDatePicker;
 
@@ -30,5 +31,10 @@ public class AppConfig {
 	@Bean
 	public NbpFactory getNbpFactory() {
 		return new NbpFactory();
+	}
+	
+	@Bean
+	public Observer getObserver() {
+		return new Observer();
 	}
 }
