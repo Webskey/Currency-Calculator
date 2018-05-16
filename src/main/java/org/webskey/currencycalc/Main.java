@@ -5,14 +5,14 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Component;
 import org.webskey.currencycalc.model.NbpFactory;
 import org.webskey.currencycalc.service.Observer;
+import org.webskey.currencycalc.view.BuyTextField;
 import org.webskey.currencycalc.view.CurrencyComboBox;
 import org.webskey.currencycalc.view.CurrencyDatePicker;
 import org.webskey.currencycalc.view.Layout;
+import org.webskey.currencycalc.view.SellTextField;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -59,29 +59,24 @@ public class Main extends Application {
 			Label sell = new Label();
 			//Buy calc
 			Label infoAmountToBuy = new Label("Enter amount to buy:");
-			infoAmountToBuy.setStyle("-fx-font-weight: bold;");
-			TextField buyTextField = new TextField();
+			infoAmountToBuy.setStyle("-fx-font-weight: bold;");			
 			Label buyCost = new Label();
+			TextField buyTextField = new BuyTextField(buyCost, factory);
 			//Sell calc
 			Label infoAmountToSell = new Label("Enter amount to sell:");
 			infoAmountToSell.setStyle("-fx-font-weight: bold;");
-			TextField sellTextField = new TextField();
 			Label sellCost = new Label();
-			//Calc button
-			Button buttonCalculate = new Button("Calculate");
-			buttonCalculate.setOnAction((ActionEvent event) -> {
-				count(buyCost, buyTextField, factory);
-				count(sellCost, sellTextField, factory);
-			});	
+			TextField sellTextField = new SellTextField(sellCost, factory);
+			
 			//Error info label
 			Label info = new Label();	
 			info.setTextFill(Color.RED);
 			
-			observer.setLabels(buy, sell, info);
+			observer.setLabels(buy, sell, info, (BuyTextField)buyTextField, (SellTextField)sellTextField);
 			observer.update();	
 			//Layout					
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, buttonCalculate, sellCost, info);
+					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, sellCost, info);
 
 			Scene scene = new Scene(gridPane);
 
@@ -89,19 +84,6 @@ public class Main extends Application {
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	public void count(Label label, TextField textField, NbpFactory factory) {
-		try {
-			if(!textField.getText().isEmpty()) {
-				double buyA = Math.round((Double.valueOf(factory.getAsk()) * Double.valueOf(textField.getText())) * 100);
-				label.setText("= " + buyA/100 + " PLN");
-				label.setTextFill(Color.BLACK);
-			}
-		} catch (NumberFormatException e) {
-			label.setText("Please enter a number");
-			label.setTextFill(Color.RED);
 		}
 	}
 

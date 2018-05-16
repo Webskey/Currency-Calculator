@@ -70,14 +70,11 @@ public class Layout extends GridPane {
 		//buyCostInfo Label
 		add(args[13], 0, 8);
 		GridPane.setHalignment(args[13], HPos.CENTER);
-		//button
-		add(args[14], 1, 8); 
-		GridPane.setHalignment(args[14], HPos.CENTER);
 		//sellCostInfo Label
-		add(args[15], 2, 8);
-		GridPane.setHalignment(args[15], HPos.CENTER);
+		add(args[14], 2, 8);
+		GridPane.setHalignment(args[14], HPos.CENTER);
 		//info
-		add(args[16], 1, 5);
-		GridPane.setHalignment(args[16], HPos.CENTER);
+		add(args[15], 1, 5);
+		GridPane.setHalignment(args[15], HPos.CENTER);
 	}
 }

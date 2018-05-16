@@ -10,6 +10,8 @@ import org.webskey.currencycalc.service.Observer;
 import org.webskey.currencycalc.view.CurrencyComboBox;
 import org.webskey.currencycalc.view.CurrencyDatePicker;
 
+import javafx.scene.control.Label;
+
 @Configuration
 public class AppConfig {
 
@@ -36,5 +38,10 @@ public class AppConfig {
 	@Bean
 	public Observer getObserver() {
 		return new Observer();
+	}
+	
+	@Bean
+	public Label buyCost() {
+		return new Label();
 	}
 }
