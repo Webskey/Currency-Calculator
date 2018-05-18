@@ -7,35 +7,23 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.webskey.currencycalc.model.JsonToObjectParser;
 import org.webskey.currencycalc.model.Nbp;
-import org.webskey.currencycalc.model.NbpNullBuilder;
-import org.webskey.currencycalc.model.UrlReader;
+import org.webskey.currencycalc.service.JsonToObjectParser;
+import org.webskey.currencycalc.service.NbpNullBuilder;
 
-@RunWith(MockitoJUnitRunner.class)
 public class JsonToObjectParserTest {
-	
-	@Mock
-	private UrlReader urlReader = new UrlReader();
-	
+
 	private Nbp nbp;
-	private NbpNullBuilder nbpNullBuilder;
-	
-	@InjectMocks
-	JsonToObjectParser jsonToObjectParser;
-	
+	private NbpNullBuilder nbpNullBuilder;	
+	private JsonToObjectParser jsonToObjectParser;
+
 	@Before
 	public void setup() {
 		jsonToObjectParser = new JsonToObjectParser();		
 	}
 
 	@Test
-	public void shouldPass_whenCorrectJsonStringPassed() throws IOException {
+	public void shouldMatchNbpNullBuilderObject_whenEmptyFieldsPassed() throws IOException {
 		//given
 		String json = "{\r\n" + 
 				"  \"table\": \"\",\r\n" + 
@@ -50,23 +38,39 @@ public class JsonToObjectParserTest {
 				"    }\r\n" + 
 				"  ]\r\n" + 
 				"}";
-		Mockito.when(urlReader.readURL()).thenReturn(json);	
-		
+
 		nbpNullBuilder = new NbpNullBuilder();
 		Nbp nbpTest = nbpNullBuilder.getNbp();		
 		//when			
-		nbp = jsonToObjectParser.parse(urlReader.readURL());
+		nbp = jsonToObjectParser.parse(json);
 		//then
 		assertEquals(nbp, nbpTest);
 	}
-	
+
+	@Test
+	public void shouldReturnNbpObject_whenCorrectJsonStringPassed() throws IOException {
+		//given
+		String json = "{\"table\":\"C\","
+				+ "\"currency\":\"dolar amerykañski\","
+				+ "\"code\":\"USD\","
+				+ "\"rates\":[{"
+				+ "\"no\":\"066/C/NBP/2018\","
+				+ "\"effectiveDate\":\"2018-04-04\","
+				+ "\"bid\":3.3977,"
+				+ "\"ask\":3.4663}]}";				
+		//when			
+		nbp = jsonToObjectParser.parse(json);
+		//then
+		assertEquals(nbp.getCode(), "USD");
+		assertEquals(nbp.getRates().get(0).getBid(), 3.3977, 0);
+	}
+
 	@Test(expected = IOException.class)
 	public void shouldThrowIOException_whenIncorrectJsonStringPassed() throws IOException {		
 		//given
 		String json = "WRONG";
-		Mockito.when(urlReader.readURL()).thenReturn(json);
 		//when
-		nbp = jsonToObjectParser.parse(urlReader.readURL());
+		nbp = jsonToObjectParser.parse(json);
 		//then
 		assertNull(nbp);
 	}

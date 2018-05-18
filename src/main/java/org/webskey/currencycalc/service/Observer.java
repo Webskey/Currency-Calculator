@@ -2,9 +2,8 @@ package org.webskey.currencycalc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webskey.currencycalc.model.NbpFactory;
-import org.webskey.currencycalc.view.BuyTextField;
-import org.webskey.currencycalc.view.SellTextField;
+import org.webskey.currencycalc.gui.BuyTextField;
+import org.webskey.currencycalc.gui.SellTextField;
 
 import javafx.scene.control.Label;
 

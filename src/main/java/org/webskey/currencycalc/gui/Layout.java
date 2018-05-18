@@ -1,4 +1,4 @@
-package org.webskey.currencycalc.view;
+package org.webskey.currencycalc.gui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

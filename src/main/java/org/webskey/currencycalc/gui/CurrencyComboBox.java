@@ -1,9 +1,9 @@
-package org.webskey.currencycalc.view;
+package org.webskey.currencycalc.gui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.webskey.currencycalc.model.UrlReader;
 import org.webskey.currencycalc.service.Observer;
+import org.webskey.currencycalc.service.UrlReader;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;

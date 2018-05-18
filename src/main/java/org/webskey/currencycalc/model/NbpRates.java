@@ -1,6 +1,6 @@
 package org.webskey.currencycalc.model;
 
-public class NbpArray {
+public class NbpRates {
 
 	private String no;
 	private String effectiveDate;
@@ -56,7 +56,7 @@ public class NbpArray {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NbpArray other = (NbpArray) obj;
+		NbpRates other = (NbpRates) obj;
 		if (Double.doubleToLongBits(ask) != Double.doubleToLongBits(other.ask))
 			return false;
 		if (Double.doubleToLongBits(bid) != Double.doubleToLongBits(other.bid))

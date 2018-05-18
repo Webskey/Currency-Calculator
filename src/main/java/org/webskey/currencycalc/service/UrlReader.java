@@ -1,4 +1,4 @@
-package org.webskey.currencycalc.model;
+package org.webskey.currencycalc.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;

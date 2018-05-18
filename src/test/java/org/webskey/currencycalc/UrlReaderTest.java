@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.webskey.currencycalc.model.UrlReader;
+import org.webskey.currencycalc.service.UrlReader;
 
 public class UrlReaderTest {
 

@@ -1,9 +1,13 @@
-package org.webskey.currencycalc.model;
+package org.webskey.currencycalc.service;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Service;
+import org.webskey.currencycalc.model.Nbp;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Service
 public class JsonToObjectParser {
 	
 	private Nbp nbp;

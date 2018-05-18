@@ -7,7 +7,7 @@ public class Nbp {
 	private String table;
 	private String currency;
 	private String code;
-	private List<NbpArray> rates;
+	private List<NbpRates> rates;
 	private String info;
 	
 	public String getTable() {
@@ -22,10 +22,10 @@ public class Nbp {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-	public List<NbpArray> getRates() {
+	public List<NbpRates> getRates() {
 		return rates;
 	}
-	public void setRates(List<NbpArray> rates) {
+	public void setRates(List<NbpRates> rates) {
 		this.rates = rates;
 	}
 	public String getCode() {
@@ -72,12 +72,7 @@ public class Nbp {
 			if (other.currency != null)
 				return false;
 		} else if (!currency.equals(other.currency))
-			return false;
-		if (info == null) {
-			if (other.info != null)
-				return false;
-		} else if (!info.equals(other.info))
-			return false;
+			return false;		
 		if (rates == null) {
 			if (other.rates != null)
 				return false;

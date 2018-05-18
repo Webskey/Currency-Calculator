@@ -1,6 +1,6 @@
-package org.webskey.currencycalc.view;
+package org.webskey.currencycalc.gui;
 
-import org.webskey.currencycalc.model.NbpFactory;
+import org.webskey.currencycalc.service.NbpFactory;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
