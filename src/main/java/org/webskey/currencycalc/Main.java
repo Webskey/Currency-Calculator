@@ -4,19 +4,23 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Component;
 import org.webskey.currencycalc.gui.BuyTextField;
+import org.webskey.currencycalc.gui.ChartWindow;
 import org.webskey.currencycalc.gui.CurrencyComboBox;
 import org.webskey.currencycalc.gui.CurrencyDatePicker;
 import org.webskey.currencycalc.gui.Layout;
 import org.webskey.currencycalc.gui.SellTextField;
 import org.webskey.currencycalc.service.NbpFactory;
 import org.webskey.currencycalc.service.Observer;
+import org.webskey.currencycalc.service.UrlReader;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,14 +33,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private static AbstractApplicationContext context;
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			//Beans
 			NbpFactory factory = context.getBean(NbpFactory.class);
 			Observer observer = context.getBean(Observer.class);
-			
+			UrlReader urlReader = context.getBean(UrlReader.class);
+
 			//Logo
 			Text infoName = new Text("Currency Calculator");
 			infoName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
@@ -66,22 +71,30 @@ public class Main extends Application {
 			Label infoAmountToSell = new Label("Enter amount to sell:");
 			infoAmountToSell.setStyle("-fx-font-weight: bold;");
 			Label sellCost = new Label();
-			TextField sellTextField = new SellTextField(sellCost, factory);
-			
+			TextField sellTextField = new SellTextField(sellCost, factory);			
 			//Error info label
 			Label info = new Label();	
 			info.setTextFill(Color.RED);
-			
+			//Observer
 			observer.setLabels(buy, sell, info, (BuyTextField)buyTextField, (SellTextField)sellTextField);
 			observer.update();	
+			//ChartWindow
+			ChartWindow chartWindow = new ChartWindow(factory, urlReader);
+			//ChartButton
+			Button chartButton = new Button("Schow chart");
+			chartButton.setOnAction((event) -> {										
+				chartWindow.show();
+			});			
 			//Layout					
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, sellCost, info);
+					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, sellCost, info, chartButton);
 
 			Scene scene = new Scene(gridPane);
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			primaryStage.setTitle("Currency Calculator");
+			primaryStage.getIcons().add(new Image("/icon.png"));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
