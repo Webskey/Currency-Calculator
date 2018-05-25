@@ -102,6 +102,6 @@ public class Main extends Application {
 
 	public static void main(String[] args) {	
 		context = new AnnotationConfigApplicationContext(AppConfig.class);
-		launch(args);		
+		launch(args);			
 	}
 }
