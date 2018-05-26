@@ -26,44 +26,48 @@ import javafx.stage.Stage;
 
 @Component
 public class ChartWindow extends Stage {
-	NbpFactory factory;
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ChartWindow(NbpFactory factory, UrlReader urlReader) {
-		//Factory Seetings
-		this.factory = factory;
-		String endDate = factory.getNbp().getRates().get(0).getEffectiveDate();
-		String startDate = LocalDate.parse(endDate).minusDays(30).toString();
-		urlReader.setDate(startDate + "/" + endDate);
-		factory.setNbp();		
-		List<NbpRates> dataSet = factory.getNbp().getRates();
-
-		//xAxis
-		//NumberAxis xAxis = new NumberAxis(0, 30, 1); 
-		CategoryAxis xAxis = new CategoryAxis();
-		xAxis.setLabel("Date"); 
-		//yAxis  
-		NumberAxis yAxis = new NumberAxis(factory.getNbp().getRates().get(0).getAsk()-0.25, factory.getNbp().getRates().get(0).getAsk()+0.25, 0.10); 
-		yAxis.setLabel("Price"); 	
-		//Creating the line chart 
-		LineChart lineChart = new LineChart(xAxis, yAxis);  
-		lineChart.setTitle("Last month prices");
-		
-		// XYChart.Series
-		XYChart.Series series = new XYChart.Series("Chart Name", FXCollections.observableArrayList(plot(dataSet)));
-		series.setName("Price on current day"); 
-		
-		lineChart.getData().add(series); 
-
-		//Window Settings
-		VBox vBox = new VBox();
-		vBox.setSpacing(10);
-		ObservableList<Node> list = vBox.getChildren(); 
-		list.addAll(lineChart);
+	
+	private	VBox vBox;
+	
+	public ChartWindow() {	
+		this.vBox = new VBox();
+		vBox.setSpacing(10);		
 		setTitle("Currency Chart");
 		setScene(new Scene(vBox, 500, 500));
 		setAlwaysOnTop(true);
 		getIcons().add(new Image("/icon.jpg"));
 		setResizable(false);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })	
+	public void createChart(NbpFactory factory, UrlReader urlReader) {
+		//Date interval
+		String[] endDateSplit = urlReader.getDate().split("/");
+		String endDate = endDateSplit[endDateSplit.length - 1];
+		String startDate = LocalDate.parse(endDate).minusDays(30).toString();
+		urlReader.setDate(startDate + "/" + endDate);
+		factory.setNbp();		
+		List<NbpRates> dataSet = factory.getNbp().getRates();
+		//xAxis
+		CategoryAxis xAxis = new CategoryAxis();
+		xAxis.setLabel("Date"); 
+		//yAxis  
+		double maxY = factory.getNbp().getRates().get(0).getAsk() + 0.25;
+		double minY = factory.getNbp().getRates().get(0).getAsk() - 0.25;
+		NumberAxis yAxis = new NumberAxis(minY, maxY, 0.10);
+		yAxis.setLabel("Price in PLN"); 	
+		//LineChart 
+		LineChart lineChart = new LineChart(xAxis, yAxis);  
+		lineChart.setTitle("Last month prices of " + factory.getNbp().getCurrency());		
+		// XYChart.Series
+		XYChart.Series series = new XYChart.Series((plot(dataSet)));
+		series.setName("Price on current day");
+		
+		lineChart.getData().add(series); 		
+		
+		ObservableList<Node> list = vBox.getChildren(); 
+		list.clear();
+		list.addAll(lineChart);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

@@ -79,11 +79,12 @@ public class Main extends Application {
 			observer.setLabels(buy, sell, info, (BuyTextField)buyTextField, (SellTextField)sellTextField);
 			observer.update();	
 			//ChartWindow
-			ChartWindow chartWindow = new ChartWindow(factory, urlReader);
+			ChartWindow chartWindow = new ChartWindow();
 			//ChartButton
 			Button chartButton = new Button("Schow chart");
 			chartButton.setOnAction((event) -> {										
 				chartWindow.show();
+				chartWindow.createChart(factory, urlReader);
 			});			
 			//Layout					
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,

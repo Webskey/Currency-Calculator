@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.webskey.currencycalc.gui.ChartWindow;
 import org.webskey.currencycalc.gui.CurrencyComboBox;
 import org.webskey.currencycalc.gui.CurrencyDatePicker;
@@ -12,10 +11,6 @@ import org.webskey.currencycalc.service.JsonToObjectParser;
 import org.webskey.currencycalc.service.NbpFactory;
 import org.webskey.currencycalc.service.Observer;
 import org.webskey.currencycalc.service.UrlReader;
-
-import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 @Configuration
 public class AppConfig {
@@ -43,11 +38,6 @@ public class AppConfig {
 	@Bean
 	public Observer getObserver() {
 		return new Observer();
-	}
-
-	@Bean
-	public Label buyCost() {
-		return new Label();
 	}
 
 	@Bean
