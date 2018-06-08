@@ -80,6 +80,9 @@ public class Main extends Application {
 			observer.update();	
 			//ChartWindow
 			ChartWindow chartWindow = new ChartWindow();
+			//ChartLabel
+			Label chartLabel = new Label("Prices within 30 days");
+			chartLabel.setStyle("-fx-font-weight: bold;");
 			//ChartButton
 			Button chartButton = new Button("Schow chart");
 			chartButton.setOnAction((event) -> {										
@@ -88,7 +91,7 @@ public class Main extends Application {
 			});			
 			//Layout					
 			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, sellCost, info, chartButton);
+					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, sellCost, info, chartLabel, chartButton);
 
 			Scene scene = new Scene(gridPane);
 

@@ -76,8 +76,11 @@ public class Layout extends GridPane {
 		//info
 		add(args[15], 1, 5);
 		GridPane.setHalignment(args[15], HPos.CENTER);
-		//chartButton
+		//chartLabel
 		add(args[16], 0, 9, 3, 1);
 		GridPane.setHalignment(args[16], HPos.CENTER);
+		//chartButton
+		add(args[17], 0, 10, 3, 1);
+		GridPane.setHalignment(args[17], HPos.CENTER);
 	}
 }

@@ -33,7 +33,7 @@ public class ChartWindow extends Stage {
 		this.vBox = new VBox();
 		vBox.setSpacing(10);		
 		setTitle("Currency Chart");
-		setScene(new Scene(vBox, 500, 500));
+		setScene(new Scene(vBox, 500, 400));
 		setAlwaysOnTop(true);
 		getIcons().add(new Image("/icon.jpg"));
 		setResizable(false);

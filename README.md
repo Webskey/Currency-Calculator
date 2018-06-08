@@ -13,5 +13,9 @@
 * Junit 4.12
 * Mockito 2.7.5
 
-### Screen
-<img src="https://i.imgur.com/K2OlQ0P.png" alt="screen of app" height="200" width="300">
+### Screens
+
+<img src="https://i.imgur.com/D5WWawD.jpg" alt="screen of app" height="200" width="300">
+<img src="https://i.imgur.com/rqiZGNK.jpg" alt="datepicker" height="200" width="300">
+<img src="https://i.imgur.com/XlBFxOL.jpg" alt="currencypicker" height="200" width="300">
+<img src="https://i.imgur.com/CT8jgk6.jpg" alt="chartwindow" height="200" width="300">
