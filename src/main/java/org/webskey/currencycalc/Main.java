@@ -36,62 +36,64 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		context = new AnnotationConfigApplicationContext(AppConfig.class);
 		try {
-			//Beans
+			// Beans
 			NbpFactory factory = context.getBean(NbpFactory.class);
 			Observer observer = context.getBean(Observer.class);
 			UrlReader urlReader = context.getBean(UrlReader.class);
 
-			//Logo
+			// Logo
 			Text infoName = new Text("Currency Calculator");
 			infoName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
 			infoName.setFill(Color.ROYALBLUE);
-			//Currency
+			// Currency
 			Label infoCurrency = new Label("Currency:");
 			infoCurrency.setStyle("-fx-font-weight: bold;");
 			ComboBox<?> currencyComboBox = context.getBean(CurrencyComboBox.class);
-			//Date
+			// Date
 			Label infoDate = new Label("Date:");
 			infoDate.setStyle("-fx-font-weight: bold;");
 			DatePicker datePicker = context.getBean(CurrencyDatePicker.class);
-			//Buy info
+			// Buy info
 			Label infoBuy = new Label("Buy:");
 			infoBuy.setStyle("-fx-font-weight: bold;");
 			Label buy = new Label();
-			//Sell info
+			// Sell info
 			Label infoSell = new Label("Sell:");
 			infoSell.setStyle("-fx-font-weight: bold;");
 			Label sell = new Label();
-			//Buy calc
+			// Buy calc
 			Label infoAmountToBuy = new Label("Enter amount to buy:");
-			infoAmountToBuy.setStyle("-fx-font-weight: bold;");			
+			infoAmountToBuy.setStyle("-fx-font-weight: bold;");
 			Label buyCost = new Label();
 			TextField buyTextField = new BuyTextField(buyCost, factory);
-			//Sell calc
+			// Sell calc
 			Label infoAmountToSell = new Label("Enter amount to sell:");
 			infoAmountToSell.setStyle("-fx-font-weight: bold;");
 			Label sellCost = new Label();
-			TextField sellTextField = new SellTextField(sellCost, factory);			
-			//Error info label
-			Label info = new Label();	
+			TextField sellTextField = new SellTextField(sellCost, factory);
+			// Error info label
+			Label info = new Label();
 			info.setTextFill(Color.RED);
-			//Observer
-			observer.setLabels(buy, sell, info, (BuyTextField)buyTextField, (SellTextField)sellTextField);
-			observer.update();	
-			//ChartWindow
+			// Observer
+			observer.setLabels(buy, sell, info, (BuyTextField) buyTextField, (SellTextField) sellTextField);
+			observer.update();
+			// ChartWindow
 			ChartWindow chartWindow = new ChartWindow();
-			//ChartLabel
+			// ChartLabel
 			Label chartLabel = new Label("Prices within 30 days");
 			chartLabel.setStyle("-fx-font-weight: bold;");
-			//ChartButton
+			// ChartButton
 			Button chartButton = new Button("Schow chart");
-			chartButton.setOnAction((event) -> {										
+			chartButton.setOnAction((event) -> {
 				chartWindow.show();
 				chartWindow.createChart(factory, urlReader);
-			});			
-			//Layout					
-			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker, infoBuy, infoSell, buy, sell,
-					infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField, buyCost, sellCost, info, chartLabel, chartButton);
+			});
+			// Layout
+			GridPane gridPane = new Layout(primaryStage, infoName, infoCurrency, infoDate, currencyComboBox, datePicker,
+					infoBuy, infoSell, buy, sell, infoAmountToBuy, infoAmountToSell, buyTextField, sellTextField,
+					buyCost, sellCost, info, chartLabel, chartButton);
 
 			Scene scene = new Scene(gridPane);
 
@@ -99,13 +101,12 @@ public class Main extends Application {
 			primaryStage.show();
 			primaryStage.setTitle("Currency Calculator");
 			primaryStage.getIcons().add(new Image("/icon.png"));
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void main(String[] args) {	
-		context = new AnnotationConfigApplicationContext(AppConfig.class);
-		launch(args);			
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
